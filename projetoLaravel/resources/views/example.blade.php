@@ -12,9 +12,10 @@
         <form>
             @csrf
             <p>Opa, você está na rota example</p>
-            <select>
-                <option>x</option>
-                <option></option>
+            <select id="select">
+                <option value="x">x</option>
+                <option value="+">+</option>
+                <option value="-">-</option>
             </select>
             <input id="n1" placeholder="Digite o número 1"/>
             <input id="n2" placeholder="Digite o número 2"/>
@@ -22,10 +23,17 @@
         </form>
             <p id="result"></p>
     </div>
+    <div>
+        <input id="nome" placeholder="Insira o nome do produto"/>
+        <input id="valor" placeholder="Insira o valor do produto"/>
+        <button onclick="criarNovoProduto()">Criar</button>
+        <p id="result_lista"></p>
+    </div>
     <script>
         async function calcular() {
             const num1 = Number(document.getElementById("n1").value);
             const num2 = Number(document.getElementById("n2").value);
+            const select = document.getElementById("select").value;
 
             const response = await fetch('/calcularSoma', {
                 method:'POST',
@@ -33,12 +41,29 @@
                     'Content-Type': 'application/json',
                     'X-CSRF-TOKEN': '{{ csrf_token() }}'
                 },
-                body: JSON.stringify({num1,num2})
+                body: JSON.stringify({num1,num2,select})
             })
 
             const data = await response.json();
 
-            document.getElementById("result").innerHTML = 'Resultado =' + data.soma;
+            document.getElementById("result").innerHTML = 'Resultado =' + data.result;
+        }
+        async function criarNovoProduto() {
+            const nome = (document.getElementById("nome").value);
+            const valor = (document.getElementById("valor").value);
+
+            const response = await fetch('/criarNovoProduto', {
+                method:'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                },
+                body: JSON.stringify({nome,valor})
+            })
+
+            const data = await response.json();
+
+            document.getElementById("result_lista").innerHTML = data.response;
         }
     </script>
 </body>
