@@ -12,6 +12,10 @@
         <form>
             @csrf
             <p>Opa, você está na rota example</p>
+            <select>
+                <option>x</option>
+                <option></option>
+            </select>
             <input id="n1" placeholder="Digite o número 1"/>
             <input id="n2" placeholder="Digite o número 2"/>
             <button type="button" onclick="calcular()">Calcular soma</button>
