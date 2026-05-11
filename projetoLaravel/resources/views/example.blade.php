@@ -29,6 +29,10 @@
         <button onclick="criarNovoProduto()">Criar</button>
         <p id="result_lista"></p>
     </div>
+
+    <div>
+        <p id="all"></p>
+    </div>
     <script>
         async function calcular() {
             const num1 = Number(document.getElementById("n1").value);
@@ -65,6 +69,14 @@
 
             document.getElementById("result_lista").innerHTML = data.response;
         }
+
+        document.addEventListener('DOMContentLoaded', async () => {
+            const response = await fetch('/pegarProdutosAll');
+            const data = await response.json();
+            data.forEach(produto => {
+                document.getElementById("all").innerHTML += `<p>${produto.nome} - ${produto.preco}</p>`;
+            })
+        });
     </script>
 </body>
 </html>

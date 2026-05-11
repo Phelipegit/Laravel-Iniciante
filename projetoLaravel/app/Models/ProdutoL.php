@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use DateTime;
-class Produto
+class ProdutoL
 {
     private string $id;
     private string $nome;
