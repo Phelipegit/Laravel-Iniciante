@@ -33,7 +33,20 @@
     <div>
         <p id="all"></p>
     </div>
+
+    <div>
+        <button onclick="deletarTudo()">Deletar Tudo</button>
+    </div>
     <script>
+        async function deletarTudo() {
+            await fetch('/deletarAll', {
+               method:'DELETE',
+               headers: {
+                   'Content-Type': 'application/json',
+                   'X-CSRF-TOKEN': '{{ csrf_token() }}'
+               }
+            });
+        }
         async function calcular() {
             const num1 = Number(document.getElementById("n1").value);
             const num2 = Number(document.getElementById("n2").value);

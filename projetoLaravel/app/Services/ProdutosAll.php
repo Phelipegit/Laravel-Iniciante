@@ -9,4 +9,8 @@ class ProdutosAll {
     {
         return response()->json(ProdutoModel::all(),201);
     }
+
+    public function deleteProdutosAll() {
+        return ProdutoModel::query()->delete();
+    }
 }

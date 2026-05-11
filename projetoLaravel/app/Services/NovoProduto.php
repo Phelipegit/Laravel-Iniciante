@@ -13,7 +13,12 @@ class NovoProduto
         $newProduto = [new ProdutoL($nome,$valor)];
         file_put_contents("arquivo.txt",implode("\n",array_map(fn($item) => $item->__toString(),$newProduto)));
         file_put_contents("arquivo.txt","oi");
-        ProdutoModel::create(['nome' => $nome,'preco' => $valor]);
+        if(ProdutoModel::where('nome', strtoupper($nome))->exists()) {
+            $produto = ProdutoModel::where('nome', strtoupper($nome))->first();
+            $produto->update(['nome' => strtoupper("SE LASCOU")]);
+            return response()->json(['response' => "Produto já existe"],400);
+        }
+        ProdutoModel::create(['nome' => strtoupper($nome),'preco' => $valor]);
         return response()->json(['response' => array_map(fn($item) => $item->__toString(), $newProduto)],201);
     }
 }

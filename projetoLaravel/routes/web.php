@@ -5,6 +5,7 @@ use App\Services\NovoProduto;
 use App\Services\ProdutosAll;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Services\DeleteAll;
 
 Route::get('/', function () {
     return view('example');
@@ -23,4 +24,9 @@ Route::post('/criarNovoProduto',function(Request $request){
 Route::get('/pegarProdutosAll', function () {
     $produtos = new ProdutosAll();
     return $produtos->getProdutosAll();
+});
+
+Route::delete('/deletarAll', function () {
+    $deleteAll = new DeleteAll();
+    return $deleteAll->deleteAll();
 });
